@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<body style="margin:0; padding:2px; background-color:#E0E0E0;" onload="focusInput()">
+
+<form id="chatForm" method="post" action="/send" target="hiddenframe" style="margin:0; padding:0;">
+  <table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="width:100%;">
+        <center>
+        <input type="text" name="msg" id="msgInput"
+               style="width:82%; font-family:Tahoma; font-size:12px; padding:2px; border:1px solid #000; margin:0; line-height:14px;"
+               autocomplete="off">
+        <input type="submit" value="Отправить" id="sendBtn"
+               style="font-family:Tahoma; font-size:12px; margin:0 2px; padding:0 4px; line-height:14px;">
+        <input type="button" value="Выход"
+               style="font-family:Tahoma; font-size:12px; margin:0 2px; padding:0 4px; line-height:14px;"
+               onclick="window.location='/disconnect';">
+        </center>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<iframe name="hiddenframe" style="display:none;"></iframe>
+
+<script type="text/javascript">
+var input = document.getElementById('msgInput');
+var form = document.getElementById('chatForm');
+var sendBtn = document.getElementById('sendBtn');
+
+function focusInput() {
+  if (input.focus) {
+    input.focus();
+  }
+}
+
+function submitAndClear() {
+  if (input.value != '') {
+    form.submit();
+    setTimeout(function(){ 
+      input.value = ''; 
+      focusInput();
+    }, 10);
+  }
+}
+
+function submitOnEnter(e) {
+  e = e || window.event;
+  var key = e.keyCode || e.which;
+  if (key === 13) {
+    submitAndClear();
+    return false;
+  }
+}
+
+if (input.addEventListener) {
+  input.addEventListener('keypress', submitOnEnter, false);
+} else if (input.attachEvent) {
+  input.attachEvent('onkeypress', submitOnEnter);
+}
+
+if (sendBtn.addEventListener) {
+  sendBtn.addEventListener('click', submitAndClear, false);
+} else if (sendBtn.attachEvent) {
+  sendBtn.attachEvent('onclick', submitAndClear);
+}
+</script>
+
+</body>
+</html>
