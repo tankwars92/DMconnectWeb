@@ -8,8 +8,8 @@ import os
 import html
 import uuid
 
-TCP_HOST = '147.185.221.19'
-TCP_PORT = 42439
+TCP_HOST = 'localhost'
+TCP_PORT = 1111
 WEB_PORT = 803
 TIMEOUT_SECONDS = 180
 
@@ -136,7 +136,7 @@ class ChatHandler(BaseHTTPRequestHandler):
                     pass
 
         self.send_response(303)
-        self.send_header('Location', '/send')
+        self.send_header('Location', '/send_input')
         self.send_header('Connection', 'close')
         self.send_header('Set-Cookie', 'session=deleted; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT')
         self.end_headers()
@@ -224,4 +224,3 @@ if __name__ == '__main__':
     print(f"Сервер запущен: http://localhost:{WEB_PORT}/index.")
     server = HTTPServer(('0.0.0.0', WEB_PORT), ChatHandler)
     server.serve_forever()
-
