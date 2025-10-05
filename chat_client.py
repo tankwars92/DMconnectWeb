@@ -8,8 +8,8 @@ import os
 import html
 import uuid
 
-TCP_HOST = 'localhost'
-TCP_PORT = 1111
+TCP_HOST = '147.185.221.19'
+TCP_PORT = 42439
 WEB_PORT = 803
 TIMEOUT_SECONDS = 180
 
@@ -224,3 +224,4 @@ if __name__ == '__main__':
     print(f"Сервер запущен: http://localhost:{WEB_PORT}/index.")
     server = HTTPServer(('0.0.0.0', WEB_PORT), ChatHandler)
     server.serve_forever()
+
