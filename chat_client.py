@@ -7,6 +7,7 @@ import urllib.parse
 import os
 import html
 import uuid
+import re
 
 TCP_HOST = '147.185.221.19'
 TCP_PORT = 42439
@@ -56,11 +57,19 @@ def start_tcp_session(session_id):
                         raw_msg = raw_msg.strip()
                         safe_name = html.escape(raw_name)
                         safe_msg = html.escape(raw_msg)
+
+                        safe_msg = re.sub(
+                            r'(https?://[^\s<]+)',
+                            r'<a href="\1" target="_blank">\1</a>',
+                            safe_msg
+                        )
+
                         if ' ' not in raw_name and raw_name != "Usage":
                             safe_name = f"<b>{safe_name}</b>"
                         clean_text = f"{safe_name}: {safe_msg}"
                     else:
                         clean_text = html.escape(clean)
+
 
                     entry = (
                         '<font color="#808080">[%s]</font> '
